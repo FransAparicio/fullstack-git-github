@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f6f8" />
+    <meta name="description" content="BootService Store: laptops, componentes, periféricos y tecnología para trabajar y jugar." />
+    <title>BootService Store — Tecnología para lo que sigue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              paper: "#f4f6f8",
+              forest: "#172554",
+              pine: "#1e40af",
+              clay: "#635bff",
+              ink: "#111827",
+              sand: "#e6eaf0",
+            },
+            fontFamily: {
+              sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
+              display: ["DM Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      html { scroll-behavior: smooth; }
+      body { font-family: "Manrope", ui-sans-serif, system-ui, sans-serif; }
+      .hero-image {
+        background-image: linear-gradient(90deg, rgba(8,16,39,.96) 0%, rgba(8,16,39,.86) 42%, rgba(8,16,39,.20) 100%), url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2200&q=85");
+        background-position: center 48%;
+        background-size: cover;
+      }
+      .product-image { transition: transform .55s cubic-bezier(.2,.75,.25,1); }
+      .product-card:hover .product-image { transform: scale(1.055); }
+      .no-scroll { overflow: hidden; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body class="bg-paper text-ink antialiased selection:bg-forest selection:text-white">
+    <div class="bg-forest px-4 py-2 text-center text-[10px] font-bold uppercase tracking-[.16em] text-white sm:text-[11px]">
+      Envío gratis en pedidos superiores a 100 € <span class="mx-2 text-white/40">·</span> Garantía oficial en todos tus productos
+    </div>
+
+    <header class="sticky top-0 z-30 border-b border-ink/[.07] bg-paper/95 backdrop-blur-xl">
+      <div class="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
+        <a href="#inicio" class="flex shrink-0 items-center gap-2.5" aria-label="BootService Store, inicio">
+          <span class="grid h-10 w-10 place-items-center rounded-full bg-forest text-white">
+            <svg viewBox="0 0 32 32" class="h-6 w-6" fill="none" aria-hidden="true">
+              <rect x="5" y="6" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M10 26h12M16 22v4M10 11h12M10 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="font-display text-[17px] font-extrabold leading-none tracking-[-.06em] sm:text-[19px]">BootService<span class="text-clay">.</span><span class="mt-1 block text-[9px] font-bold uppercase tracking-[.24em] text-ink/45">Tech store</span></span>
+        </a>
+
+        <nav class="hidden items-center gap-8 md:flex" aria-label="Navegación principal">
+          <a class="text-[13px] font-semibold text-ink/70 transition hover:text-forest" href="#catalogo">Computación</a>
+          <a class="text-[13px] font-semibold text-ink/70 transition hover:text-forest" href="#catalogo" data-nav-category="Componentes">Componentes</a>
+          <a class="text-[13px] font-semibold text-ink/70 transition hover:text-forest" href="#catalogo" data-nav-category="Periféricos">Periféricos</a>
+          <a class="text-[13px] font-semibold text-ink/70 transition hover:text-forest" href="#beneficios">Ofertas</a>
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <label class="hidden h-10 items-center gap-2 rounded-full border border-ink/10 bg-white/60 px-3.5 lg:flex" for="search-input">
+            <svg class="h-4 w-4 text-ink/45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m16 16 4 4"/></svg>
+            <input id="search-input" class="w-32 bg-transparent text-xs outline-none placeholder:text-ink/40 xl:w-40" type="search" placeholder="Buscar productos" autocomplete="off" />
+          </label>
+          <button id="search-toggle" class="grid h-10 w-10 place-items-center rounded-full transition hover:bg-ink/[.06] lg:hidden" aria-label="Mostrar búsqueda" aria-expanded="false">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m16 16 4 4"/></svg>
+          </button>
+          <button id="cart-open" class="relative grid h-10 w-10 place-items-center rounded-full transition hover:bg-ink/[.06]" aria-label="Abrir carrito, 0 artículos">
+            <svg class="h-[21px] w-[21px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L21 9H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+            <span id="cart-count" class="absolute -right-0.5 -top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-clay px-1 text-[9px] font-extrabold text-white">0</span>
+          </button>
+          <button id="mobile-menu-toggle" class="grid h-10 w-10 place-items-center rounded-full transition hover:bg-ink/[.06] md:hidden" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-search" class="hidden border-t border-ink/[.07] px-5 py-3 lg:hidden">
+        <label class="flex items-center gap-2 rounded-full border border-ink/10 bg-white px-4 py-2.5" for="mobile-search-input">
+          <svg class="h-4 w-4 shrink-0 text-ink/45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m16 16 4 4"/></svg>
+          <input id="mobile-search-input" class="w-full bg-transparent text-sm outline-none placeholder:text-ink/40" type="search" placeholder="Buscar laptops, periféricos..." autocomplete="off" />
+        </label>
+      </div>
+      <nav id="mobile-menu" class="hidden border-t border-ink/[.07] px-5 py-3 md:hidden" aria-label="Navegación móvil">
+        <a class="block rounded-lg px-3 py-3 text-sm font-semibold hover:bg-ink/[.04]" href="#catalogo">Computación</a>
+        <a class="block rounded-lg px-3 py-3 text-sm font-semibold hover:bg-ink/[.04]" href="#catalogo" data-nav-category="Componentes">Componentes</a>
+        <a class="block rounded-lg px-3 py-3 text-sm font-semibold hover:bg-ink/[.04]" href="#catalogo" data-nav-category="Periféricos">Periféricos</a>
+        <a class="block rounded-lg px-3 py-3 text-sm font-semibold hover:bg-ink/[.04]" href="#beneficios">Ofertas</a>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      <section class="px-4 pt-4 sm:px-6 lg:px-8">
+        <div class="hero-image relative mx-auto flex min-h-[490px] max-w-[1440px] items-center overflow-hidden rounded-[1.6rem] sm:min-h-[560px] sm:rounded-[2rem] lg:min-h-[620px]">
+          <div class="relative z-10 max-w-2xl px-7 py-16 sm:px-12 lg:px-20">
+            <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.17em] text-white backdrop-blur-sm">
+              <span class="h-1.5 w-1.5 rounded-full bg-[#a5f3fc]"></span> Tecnología seleccionada · 2026
+            </span>
+            <h1 class="font-display text-[2.8rem] font-bold leading-[.99] tracking-[-.055em] text-white sm:text-6xl lg:text-[4.5rem]">
+              Tecnología para<br /><span class="font-medium italic text-[#a5f3fc]">todo lo que</span> sigue.
+            </h1>
+            <p class="mt-6 max-w-md text-sm leading-7 text-white/75 sm:text-base sm:leading-8">
+              Potencia tu espacio, acelera tus ideas y juega sin límites. Encuentra laptops, componentes y periféricos seleccionados para ti.
+            </p>
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a href="#catalogo" class="inline-flex items-center gap-3 rounded-full bg-paper px-6 py-3.5 text-xs font-extrabold text-forest transition hover:bg-white">
+                Explorar productos <span aria-hidden="true">↗</span>
+              </a>
+              <span class="text-[11px] font-medium text-white/65">Rendimiento, diseño y garantía.</span>
+            </div>
+          </div>
+          <div class="absolute bottom-7 right-8 hidden rounded-2xl border border-white/20 bg-white/10 p-4 text-right backdrop-blur-md sm:block lg:bottom-10 lg:right-10">
+            <p class="font-display text-2xl font-bold text-white">Tech<span class="text-[#a5f3fc]">+</span></p><p class="text-[9px] font-bold uppercase tracking-[.14em] text-white/65">Tu espacio, actualizado</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="catalogo" class="mx-auto max-w-[1440px] scroll-mt-24 px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+        <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <p class="mb-3 text-[10px] font-extrabold uppercase tracking-[.2em] text-clay">Lo más buscado</p>
+            <h2 class="font-display text-3xl font-bold tracking-[-.045em] sm:text-[2.6rem]">Productos destacados.</h2>
+            <p class="mt-3 text-sm text-ink/55">Tecnología para trabajar, crear y jugar mejor.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2" id="category-filters" aria-label="Filtrar por categoría">
+            <button class="filter-button rounded-full bg-forest px-4 py-2.5 text-[11px] font-bold text-white transition" data-category="Todo" aria-pressed="true">Todo</button>
+            <button class="filter-button rounded-full border border-ink/10 px-4 py-2.5 text-[11px] font-bold text-ink/60 transition hover:border-forest hover:text-forest" data-category="Computadoras" aria-pressed="false">Computadoras</button>
+            <button class="filter-button rounded-full border border-ink/10 px-4 py-2.5 text-[11px] font-bold text-ink/60 transition hover:border-forest hover:text-forest" data-category="Componentes" aria-pressed="false">Componentes</button>
+            <button class="filter-button rounded-full border border-ink/10 px-4 py-2.5 text-[11px] font-bold text-ink/60 transition hover:border-forest hover:text-forest" data-category="Periféricos" aria-pressed="false">Periféricos</button>
+            <button class="filter-button rounded-full border border-ink/10 px-4 py-2.5 text-[11px] font-bold text-ink/60 transition hover:border-forest hover:text-forest" data-category="Accesorios" aria-pressed="false">Accesorios</button>
+          </div>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center justify-between gap-3 border-y border-ink/[.08] py-3.5">
+          <p id="results-count" class="text-[11px] font-semibold text-ink/50" aria-live="polite">Mostrando productos</p>
+          <label class="flex items-center gap-2 text-[11px] font-semibold text-ink/50">Ordenar por
+            <select id="sort-select" class="cursor-pointer bg-transparent font-bold text-ink outline-none">
+              <option value="featured">Destacados</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="rating">Mejor valorados</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="product-grid" class="mt-6 grid grid-cols-1 gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-live="polite"></div>
+        <div id="empty-state" class="hidden py-20 text-center">
+          <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-sand text-2xl">⌕</span>
+          <h3 class="mt-5 font-display text-xl font-bold">No encontramos ese producto.</h3>
+          <p class="mt-2 text-sm text-ink/55">Prueba con otro nombre o cambia los filtros.</p>
+          <button id="clear-filters" class="mt-5 rounded-full bg-forest px-5 py-2.5 text-xs font-bold text-white transition hover:bg-pine">Ver todos los productos</button>
+        </div>
+      </section>
+
+      <section id="historia" class="scroll-mt-20 bg-[#eae7de]">
+        <div class="mx-auto grid max-w-[1440px] gap-9 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-12">
+          <div class="relative min-h-[310px] overflow-hidden rounded-[1.5rem] bg-[#b8c0ae] sm:min-h-[400px]">
+            <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Espacio de trabajo con laptop y equipo tecnológico" loading="lazy" />
+            <div class="absolute bottom-4 left-4 rounded-xl bg-paper/90 px-4 py-3 backdrop-blur-sm"><p class="font-display text-lg font-bold text-forest">Mejor tecnología.</p><p class="text-[10px] text-ink/60">Más ideas por delante.</p></div>
+          </div>
+          <div class="max-w-xl">
+            <p class="mb-3 text-[10px] font-extrabold uppercase tracking-[.2em] text-clay">La filosofía BootService</p>
+            <h2 class="font-display text-3xl font-bold leading-tight tracking-[-.045em] sm:text-4xl">Tu setup no es solo equipo.<br /><span class="font-medium italic text-forest">Es todo lo que puedes crear.</span></h2>
+            <p class="mt-5 text-sm leading-7 text-ink/65">Seleccionamos laptops, componentes y periféricos para que encuentres la herramienta adecuada, tanto si estás montando tu primer setup como si quieres llevar al siguiente nivel el que ya tienes.</p>
+            <a href="#catalogo" class="mt-7 inline-flex items-center gap-2 text-xs font-extrabold text-forest underline decoration-forest/25 underline-offset-4 transition hover:decoration-forest">Descubre los destacados <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section id="beneficios" class="scroll-mt-20 mx-auto grid max-w-[1440px] gap-4 px-5 py-14 sm:grid-cols-3 sm:px-8 sm:py-16 lg:px-12">
+        <article class="flex gap-4 rounded-2xl border border-ink/[.08] bg-white/40 p-5">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-forest/10 text-forest"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg></span>
+          <div><h3 class="text-sm font-extrabold">Envío gratis desde 100 €</h3><p class="mt-1.5 text-xs leading-5 text-ink/55">Tu nuevo equipo llega sin coste extra.</p></div>
+        </article>
+        <article class="flex gap-4 rounded-2xl border border-ink/[.08] bg-white/40 p-5">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-forest/10 text-forest"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7v5h-5M4 17v-5h5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 9A7 7 0 0 1 17 6l3 6M4 12l3 6a7 7 0 0 0 11.5-3"/></svg></span>
+          <div><h3 class="text-sm font-extrabold">Devolución sencilla</h3><p class="mt-1.5 text-xs leading-5 text-ink/55">Compra con tranquilidad y soporte cercano.</p></div>
+        </article>
+        <article class="flex gap-4 rounded-2xl border border-ink/[.08] bg-white/40 p-5">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-forest/10 text-forest"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg></span>
+          <div><h3 class="text-sm font-extrabold">Tecnología confiable</h3><p class="mt-1.5 text-xs leading-5 text-ink/55">Productos seleccionados y garantía oficial.</p></div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="bg-forest text-white">
+      <div class="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+        <a href="#inicio" class="flex items-center gap-2.5">
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white"><svg viewBox="0 0 32 32" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5v13.5c0 1.1.7 2.1 1.7 2.5l4.1 1.7c.7.3 1.2 1 1.2 1.8V27h11a2 2 0 0 0 2-2v-1.4a2 2 0 0 0-1.3-1.9l-5.1-1.9a3 3 0 0 1-1.9-2.8V5M8 10h11M8 14h11"/></svg></span>
+          <span class="font-display text-sm font-extrabold tracking-tight">BootService Store<span class="text-[#e7b978]">.</span></span>
+        </a>
+        <p class="text-[11px] text-white/50">© <span id="current-year"></span> BootService Store. Tecnología para lo que sigue.</p>
+        <a href="#inicio" class="text-xs font-bold text-white/75 transition hover:text-white">Volver arriba ↑</a>
+      </div>
+    </footer>
+
+    <div id="drawer-backdrop" class="pointer-events-none fixed inset-0 z-40 bg-forest/35 opacity-0 backdrop-blur-[2px] transition-opacity" aria-hidden="true"></div>
+    <aside id="cart-drawer" class="pointer-events-none fixed right-0 top-0 z-50 flex h-full w-full max-w-[440px] translate-x-full flex-col bg-paper shadow-2xl transition-transform duration-300" aria-label="Carrito de compra" aria-hidden="true">
+      <div class="flex items-center justify-between border-b border-ink/10 px-5 py-5 sm:px-7">
+        <div><p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-clay">Tu selección</p><h2 class="mt-1 font-display text-xl font-bold">Carrito <span id="drawer-count" class="text-ink/45">(0)</span></h2></div>
+        <button id="cart-close" class="grid h-10 w-10 place-items-center rounded-full transition hover:bg-ink/[.06]" aria-label="Cerrar carrito"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto px-5 py-2 sm:px-7"></div>
+      <div id="cart-footer" class="hidden border-t border-ink/10 px-5 py-5 sm:px-7">
+        <div class="mb-2 flex justify-between text-sm"><span class="font-semibold text-ink/60">Subtotal</span><span id="cart-subtotal" class="font-extrabold"></span></div>
+        <p class="mb-4 text-[10px] text-ink/50">Envío e impuestos calculados al finalizar la compra.</p>
+        <button id="checkout-button" class="w-full rounded-full bg-forest px-5 py-4 text-xs font-extrabold text-white transition hover:bg-pine">Continuar con la compra <span aria-hidden="true">→</span></button>
+      </div>
+    </aside>
+    <div id="toast" class="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 translate-y-3 rounded-full bg-forest px-5 py-3 text-xs font-bold text-white opacity-0 shadow-xl transition-all" role="status" aria-live="polite"></div>
+
+    <script>
+      const products = [
+        { id: "zenbook-14", name: "Zenbook Air 14", category: "Computadoras", price: 1199, oldPrice: 1349, rating: 4.9, reviews: 128, badge: "Más vendido", color: "Core Ultra 7 · 16 GB · 1 TB", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80", imageAlt: "Laptop ultraligera de aluminio abierta" },
+        { id: "studiobook-pro", name: "StudioBook Pro 16", category: "Computadoras", price: 1899, rating: 4.8, reviews: 86, badge: "Nuevo", color: "Ryzen 9 · 32 GB · RTX 4070", image: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=900&q=80", imageAlt: "Computadora portátil de alto rendimiento" },
+        { id: "geforce-rtx", name: "GeForce RTX 5070", category: "Componentes", price: 729, oldPrice: 799, rating: 4.9, reviews: 64, badge: "−9%", color: "12 GB GDDR7 · DLSS 4", image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=900&q=80", imageAlt: "Tarjeta gráfica y componentes de computadora" },
+        { id: "mechanical-75", name: "Keyboard Pro 75", category: "Periféricos", price: 149, rating: 5.0, reviews: 42, badge: "Nuevo", color: "Mecánico · Hot-swap · RGB", image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=80", imageAlt: "Teclado mecánico compacto para computadora" },
+        { id: "nova-headset", name: "Nova Wireless", category: "Periféricos", price: 119, rating: 4.8, reviews: 97, badge: "", color: "Audio espacial · 40 h", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80", imageAlt: "Audífonos inalámbricos de alta fidelidad" },
+        { id: "precision-mouse", name: "Precision Mouse X", category: "Periféricos", price: 79, rating: 4.9, reviews: 203, badge: "Favorito", color: "26K DPI · Inalámbrico", image: "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80", imageAlt: "Mouse ergonómico para computadora" },
+        { id: "ultrawide-34", name: "Vision UltraWide 34", category: "Computadoras", price: 549, rating: 4.7, reviews: 51, badge: "", color: "QHD · 165 Hz · USB-C", image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=80", imageAlt: "Monitor de computadora de pantalla amplia" },
+        { id: "ssd-nvme", name: "SSD Vector 2 TB", category: "Componentes", price: 189, rating: 4.8, reviews: 73, badge: "Rápido", color: "NVMe Gen 4 · 7.400 MB/s", image: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=900&q=80", imageAlt: "Unidad de estado sólido y componentes electrónicos" },
+      ];
+
+      const formatPrice = (amount) => new Intl.NumberFormat("es-ES", {
+        style: "currency",
+        currency: "EUR",
+        maximumFractionDigits: 0,
+      }).format(amount);
+      let selectedCategory = "Todo";
+      let searchQuery = "";
+      let sortOrder = "featured";
+      let cart = [];
+      let toastTimeout;
+
+      try {
+        const storedCart = localStorage.getItem("bootservice-cart");
+        if (storedCart) {
+          const parsedCart = JSON.parse(storedCart);
+          if (!Array.isArray(parsedCart)) throw new TypeError("El carrito guardado no tiene un formato válido.");
+          cart = parsedCart.filter((item) =>
+            products.some((product) => product.id === item.id) &&
+            Number.isInteger(item.quantity) && item.quantity > 0
+          );
+        }
+      } catch (error) {
+        console.error("No se pudo recuperar el carrito guardado.", error);
+        cart = [];
+      }
+
+      const productGrid = document.querySelector("#product-grid");
+      const emptyState = document.querySelector("#empty-state");
+      const resultsCount = document.querySelector("#results-count");
+      const cartDrawer = document.querySelector("#cart-drawer");
+      const backdrop = document.querySelector("#drawer-backdrop");
+      const cartItems = document.querySelector("#cart-items");
+      const cartFooter = document.querySelector("#cart-footer");
+      const toast = document.querySelector("#toast");
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.remove("opacity-0", "translate-y-3");
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => toast.classList.add("opacity-0", "translate-y-3"), 2300);
+      }
+
+      function persistCart() {
+        try {
+          localStorage.setItem("bootservice-cart", JSON.stringify(cart));
+        } catch (error) {
+          console.error("No se pudo guardar el carrito en este navegador.", error);
+          showToast("No se pudo guardar el carrito en este navegador.");
+        }
+      }
+
+      function renderProducts() {
+        let visibleProducts = products.filter((product) => {
+          const matchesCategory = selectedCategory === "Todo" || product.category === selectedCategory;
+          const matchesSearch = `${product.name} ${product.category} ${product.color}`.toLocaleLowerCase("es").includes(searchQuery.toLocaleLowerCase("es"));
+          return matchesCategory && matchesSearch;
+        });
+
+        if (sortOrder === "price-asc") visibleProducts.sort((a, b) => a.price - b.price);
+        if (sortOrder === "price-desc") visibleProducts.sort((a, b) => b.price - a.price);
+        if (sortOrder === "rating") visibleProducts.sort((a, b) => b.rating - a.rating);
+
+        resultsCount.textContent = `${visibleProducts.length} ${visibleProducts.length === 1 ? "producto" : "productos"}`;
+        emptyState.classList.toggle("hidden", visibleProducts.length > 0);
+        productGrid.classList.toggle("hidden", visibleProducts.length === 0);
+        productGrid.innerHTML = visibleProducts.map((product) => `
+          <article class="product-card group min-w-0">
+            <div class="relative aspect-[.91/1] overflow-hidden rounded-2xl bg-[#e9e5db]">
+              <img class="product-image h-full w-full object-cover" src="${product.image}" alt="${product.imageAlt}" loading="lazy" />
+              ${product.badge ? `<span class="absolute left-3 top-3 rounded-full bg-paper px-3 py-1.5 text-[9px] font-extrabold uppercase tracking-[.08em] text-forest shadow-sm">${product.badge}</span>` : ""}
+              <button class="add-to-cart absolute bottom-3 left-3 right-3 flex translate-y-2 items-center justify-center gap-2 rounded-full bg-forest px-4 py-3 text-[11px] font-extrabold text-white opacity-0 shadow-lg transition duration-200 hover:bg-pine group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100" data-product-id="${product.id}" aria-label="Añadir ${product.name} al carrito">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L21 9H6"/><path stroke-linecap="round" d="M10 12h6m-3-3v6"/></svg> Añadir al carrito
+              </button>
+            </div>
+            <div class="px-0.5 pt-3.5">
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-[9px] font-extrabold uppercase tracking-[.15em] text-ink/45">${product.category}</p>
+                <span class="inline-flex items-center gap-1 text-[10px] font-bold text-ink/65"><span class="text-[#b77b2c]">★</span> ${product.rating} <span class="font-medium text-ink/40">(${product.reviews})</span></span>
+              </div>
+              <h3 class="mt-1.5 font-display text-[15px] font-bold tracking-tight">${product.name}</h3>
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <p class="text-xs text-ink/50">${product.color}</p>
+                <p class="shrink-0 text-sm font-extrabold">${formatPrice(product.price)} ${product.oldPrice ? `<span class="ml-1 text-[10px] font-semibold text-ink/35 line-through">${formatPrice(product.oldPrice)}</span>` : ""}</p>
+              </div>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function renderCart() {
+        const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const countBadge = document.querySelector("#cart-count");
+        countBadge.textContent = itemCount > 99 ? "99+" : String(itemCount);
+        document.querySelector("#cart-open").setAttribute("aria-label", `Abrir carrito, ${itemCount} ${itemCount === 1 ? "artículo" : "artículos"}`);
+        document.querySelector("#drawer-count").textContent = `(${itemCount})`;
+
+        if (cart.length === 0) {
+          cartItems.innerHTML = `<div class="flex h-full min-h-64 flex-col items-center justify-center text-center"><span class="grid h-14 w-14 place-items-center rounded-full bg-sand text-forest"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L21 9H6"/></svg></span>          <h3 class="mt-5 font-display text-lg font-bold">Tu setup empieza aquí.</h3><p class="mt-2 max-w-[230px] text-xs leading-5 text-ink/55">Todavía no has añadido productos a tu carrito.</p><button class="continue-shopping mt-5 rounded-full bg-forest px-5 py-2.5 text-[11px] font-bold text-white transition hover:bg-pine">Ver destacados</button></div>`;
+          cartFooter.classList.add("hidden");
+          return;
+        }
+
+        const subtotal = cart.reduce((sum, item) => {
+          const product = products.find((entry) => entry.id === item.id);
+          return sum + product.price * item.quantity;
+        }, 0);
+        cartItems.innerHTML = cart.map((item) => {
+          const product = products.find((entry) => entry.id === item.id);
+          return `<article class="flex gap-4 border-b border-ink/[.08] py-5">
+            <img class="h-24 w-20 rounded-xl bg-sand object-cover" src="${product.image}" alt="${product.imageAlt}" />
+            <div class="flex min-w-0 flex-1 flex-col justify-between py-0.5">
+              <div class="flex items-start justify-between gap-2"><div><h3 class="text-sm font-extrabold">${product.name}</h3><p class="mt-1 text-[10px] text-ink/50">${product.color}</p></div><button class="remove-item p-1 text-ink/35 transition hover:text-clay" data-product-id="${product.id}" aria-label="Quitar ${product.name} del carrito"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M10 11v6m4-6v6M5 7l1 14h12l1-14M9 7V4h6v3"/></svg></button></div>
+              <div class="flex items-end justify-between gap-2"><div class="flex items-center rounded-full border border-ink/10"><button class="quantity-change px-3 py-1.5 text-sm" data-product-id="${product.id}" data-delta="-1" aria-label="Reducir cantidad de ${product.name}">−</button><span class="min-w-5 text-center text-[11px] font-bold">${item.quantity}</span><button class="quantity-change px-3 py-1.5 text-sm" data-product-id="${product.id}" data-delta="1" aria-label="Aumentar cantidad de ${product.name}">+</button></div><span class="text-sm font-extrabold">${formatPrice(product.price * item.quantity)}</span></div>
+            </div>
+          </article>`;
+        }).join("");
+        document.querySelector("#cart-subtotal").textContent = formatPrice(subtotal);
+        cartFooter.classList.remove("hidden");
+      }
+
+      function addToCart(productId) {
+        const existingItem = cart.find((item) => item.id === productId);
+        if (existingItem) existingItem.quantity += 1;
+        else cart.push({ id: productId, quantity: 1 });
+        persistCart();
+        renderCart();
+        const product = products.find((entry) => entry.id === productId);
+        showToast(`${product.name} añadido al carrito`);
+      }
+
+      function openCart() {
+        renderCart();
+        cartDrawer.classList.remove("translate-x-full", "pointer-events-none");
+        cartDrawer.setAttribute("aria-hidden", "false");
+        backdrop.classList.remove("pointer-events-none", "opacity-0");
+        document.body.classList.add("no-scroll");
+        document.querySelector("#cart-close").focus();
+      }
+
+      function closeCart() {
+        cartDrawer.classList.add("translate-x-full", "pointer-events-none");
+        cartDrawer.setAttribute("aria-hidden", "true");
+        backdrop.classList.add("pointer-events-none", "opacity-0");
+        document.body.classList.remove("no-scroll");
+      }
+
+      document.querySelector("#category-filters").addEventListener("click", (event) => {
+        const button = event.target.closest(".filter-button");
+        if (!button) return;
+        selectedCategory = button.dataset.category;
+        document.querySelectorAll(".filter-button").forEach((filter) => {
+          const selected = filter === button;
+          filter.setAttribute("aria-pressed", String(selected));
+          filter.classList.toggle("bg-forest", selected);
+          filter.classList.toggle("text-white", selected);
+          filter.classList.toggle("border", !selected);
+          filter.classList.toggle("border-ink/10", !selected);
+          filter.classList.toggle("text-ink/60", !selected);
+        });
+        renderProducts();
+      });
+
+      document.querySelectorAll("[data-nav-category]").forEach((link) => {
+        link.addEventListener("click", () => {
+          const categoryFilter = document.querySelector(`.filter-button[data-category="${link.dataset.navCategory}"]`);
+          if (categoryFilter) categoryFilter.click();
+          document.querySelector("#mobile-menu").classList.add("hidden");
+          document.querySelector("#mobile-menu-toggle").setAttribute("aria-expanded", "false");
+        });
+      });
+
+      productGrid.addEventListener("click", (event) => {
+        const button = event.target.closest(".add-to-cart");
+        if (button) addToCart(button.dataset.productId);
+      });
+      document.querySelector("#sort-select").addEventListener("change", (event) => {
+        sortOrder = event.target.value;
+        renderProducts();
+      });
+
+      const searchInput = document.querySelector("#search-input");
+      const mobileSearchInput = document.querySelector("#mobile-search-input");
+      function updateSearch(value, source) {
+        searchQuery = value.trim();
+        const otherInput = source === searchInput ? mobileSearchInput : searchInput;
+        otherInput.value = value;
+        renderProducts();
+      }
+      searchInput.addEventListener("input", (event) => updateSearch(event.target.value, searchInput));
+      mobileSearchInput.addEventListener("input", (event) => updateSearch(event.target.value, mobileSearchInput));
+
+      document.querySelector("#clear-filters").addEventListener("click", () => {
+        selectedCategory = "Todo";
+        searchQuery = "";
+        searchInput.value = "";
+        mobileSearchInput.value = "";
+        document.querySelectorAll(".filter-button").forEach((filter) => {
+          const selected = filter.dataset.category === "Todo";
+          filter.setAttribute("aria-pressed", String(selected));
+          filter.classList.toggle("bg-forest", selected);
+          filter.classList.toggle("text-white", selected);
+          filter.classList.toggle("border", !selected);
+          filter.classList.toggle("border-ink/10", !selected);
+          filter.classList.toggle("text-ink/60", !selected);
+        });
+        renderProducts();
+      });
+
+      document.querySelector("#cart-open").addEventListener("click", openCart);
+      document.querySelector("#cart-close").addEventListener("click", closeCart);
+      backdrop.addEventListener("click", closeCart);
+      cartItems.addEventListener("click", (event) => {
+        if (event.target.closest(".continue-shopping")) {
+          closeCart();
+          document.querySelector("#catalogo").scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+        const removeButton = event.target.closest(".remove-item");
+        if (removeButton) {
+          cart = cart.filter((item) => item.id !== removeButton.dataset.productId);
+          persistCart();
+          renderCart();
+          showToast("Producto eliminado del carrito");
+          return;
+        }
+        const quantityButton = event.target.closest(".quantity-change");
+        if (!quantityButton) return;
+        const item = cart.find((entry) => entry.id === quantityButton.dataset.productId);
+        item.quantity += Number(quantityButton.dataset.delta);
+        if (item.quantity <= 0) cart = cart.filter((entry) => entry.id !== item.id);
+        persistCart();
+        renderCart();
+      });
+      document.querySelector("#checkout-button").addEventListener("click", () => {
+        showToast("¡Gracias! La compra online estará disponible muy pronto.");
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeCart();
+          document.querySelector("#mobile-menu").classList.add("hidden");
+          document.querySelector("#mobile-menu-toggle").setAttribute("aria-expanded", "false");
+        }
+      });
+
+      const mobileMenuToggle = document.querySelector("#mobile-menu-toggle");
+      const mobileMenu = document.querySelector("#mobile-menu");
+      mobileMenuToggle.addEventListener("click", () => {
+        const isExpanded = mobileMenuToggle.getAttribute("aria-expanded") === "true";
+        mobileMenuToggle.setAttribute("aria-expanded", String(!isExpanded));
+        mobileMenu.classList.toggle("hidden", isExpanded);
+      });
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          mobileMenuToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      const searchToggle = document.querySelector("#search-toggle");
+      const mobileSearch = document.querySelector("#mobile-search");
+      searchToggle.addEventListener("click", () => {
+        const isExpanded = searchToggle.getAttribute("aria-expanded") === "true";
+        searchToggle.setAttribute("aria-expanded", String(!isExpanded));
+        mobileSearch.classList.toggle("hidden", isExpanded);
+        if (!isExpanded) mobileSearchInput.focus();
+      });
+
+      document.querySelector("#current-year").textContent = new Date().getFullYear();
+      renderProducts();
+      renderCart();
+    </script>
+  </body>
+</html>
